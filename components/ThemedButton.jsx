@@ -16,8 +16,12 @@ export default ThemedButton;
 const styles = StyleSheet.create({
   btn: {
     backgroundColor: Colors.primary,
-    padding: 10,
+    padding: 7,
     borderRadius: 3,
+    justifyContent: "center",
+    textAlign: "center",
+    height: "auto",
+    width: "auto",
   },
   presseed: { opacity: 0.7 },
 });

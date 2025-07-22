@@ -26,7 +26,7 @@ const DashboardLayout = () => {
           tabBarIcon: ({ focused }) => (
             <Ionicons
               size={24}
-              name={focused ? "person" : "person-outline"}
+              name={focused ? "home" : "home-outline"}
               color={focused ? theme.iconColorFocused : theme.iconColor}
             />
           ),
@@ -79,11 +79,7 @@ const DashboardLayout = () => {
           tabBarIcon: ({ focused }) => (
             <Ionicons
               size={24}
-              name={
-                focused
-                  ? "ellipsis-vertical-circle"
-                  : "ellipsis-vertical-circle-outline"
-              }
+              name={focused ? "settings" : "settings-outline"}
               color={focused ? theme.iconColorFocused : theme.iconColor}
             />
           ),

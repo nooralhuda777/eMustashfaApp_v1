@@ -1,20 +1,24 @@
-// src/screens/LoginScreen.js (Example component)
-import React, { useState } from "react";
-import { TextInput, Button, StyleSheet, Alert } from "react-native";
-import { signInWithEmailAndPassword } from "firebase/auth"; // Import Firebase Auth function
-import { auth } from "../../FirebaseConfig"; // Import your initialized auth instance
-import ThemedButton from "../../components/ThemedButton";
+import { useState } from "react";
+import {
+  TextInput,
+  Button,
+  StyleSheet,
+  Alert,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from "react-native";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../FirebaseConfig";
+
 import ThemedView from "../../components/ThemedView";
 import { Link, router } from "expo-router";
-
 import ThemedLogo from "../../components/ThemedLogo";
 import ThemedText from "../../components/ThemedText";
 import Spacer from "../../components/Spacer";
-import { Colors } from "../../constants/Color"; // Assuming Colors is here
+import { Colors } from "../../constants/Color";
 import { useColorScheme } from "react-native";
 
 function LoginScreen() {
-  // Assuming you use React Navigation
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -31,8 +35,7 @@ function LoginScreen() {
       await signInWithEmailAndPassword(auth, email, password);
       console.log("Logged in!");
       Alert.alert("Success", "Logged in!");
-      // Firebase auth listener in app/_layout.jsx will handle navigation to dashboard
-      // No need for router.replace here, as _layout.jsx will handle it.
+      router.replace("/(dashboard)/profile");
     } catch (error) {
       console.error("Login error:", error.code, error.message);
       let errorMessage = "Failed to log in. Please check your credentials.";
@@ -49,40 +52,54 @@ function LoginScreen() {
   };
 
   return (
-    <ThemedView
-      style={[styles.container, { backgroundColor: theme.background }]}
-    >
-      <ThemedLogo />
-      <Spacer height={10} />
-      <ThemedText style={[styles.title, { color: theme.title }]}>
-        Login to your account
-      </ThemedText>
-      <TextInput
-        style={[styles.input, { borderColor: theme.border, color: theme.text }]}
-        placeholder="Email"
-        placeholderTextColor={theme.placeholder}
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-        autoCapitalize="none"
-      />
-      <TextInput
-        style={[styles.input, { borderColor: theme.border, color: theme.text }]}
-        placeholder="Password"
-        placeholderTextColor={theme.placeholder}
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
-      <Button title="Login" onPress={handleLogin} />
-      <Spacer height={15} />
-      <Link href="/(authentication)/signupScreen">
-        <ThemedText
-          style={[styles.link, { color: theme.text }]}
-          children="Don't have an account? Sign Up"
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <ThemedView
+        style={[styles.container, { backgroundColor: theme.background }]}
+      >
+        <ThemedLogo />
+
+        <Spacer height={20} />
+
+        <ThemedText style={[styles.title, { color: theme.title }]}>
+          Login to your account
+        </ThemedText>
+        <TextInput
+          style={[
+            styles.input,
+            { borderColor: theme.border, color: theme.text },
+          ]}
+          placeholder="Email"
+          placeholderTextColor={theme.placeholder}
+          value={email}
+          onChangeText={setEmail}
+          keyboardType="email-address"
+          autoCapitalize="none"
         />
-      </Link>
-    </ThemedView>
+        <TextInput
+          style={[
+            styles.input,
+            { borderColor: theme.border, color: theme.text },
+          ]}
+          placeholder="Password"
+          placeholderTextColor={theme.placeholder}
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+        />
+        <Button title="Login" onPress={handleLogin} />
+        <Spacer height={15} />
+        <Link href="/(authentication)/signupScreen">
+          <ThemedText
+            style={[styles.link, { color: theme.text }]}
+            children="Don't have an account? Sign Up"
+          />
+        </Link>
+        <Link href="../about" style={styles.AboutLink}>
+          <ThemedText>Learn more about eMustashfa?</ThemedText>
+        </Link>
+        <Spacer height={220} />
+      </ThemedView>
+    </TouchableWithoutFeedback>
   );
 }
 
@@ -110,6 +127,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textDecorationLine: "underline",
     fontSize: 15,
+  },
+  AboutLink: {
+    fontWeight: "bold",
+    textDecorationLine: "underline",
+    fontSize: 12,
+    marginTop: 25,
   },
 });
 

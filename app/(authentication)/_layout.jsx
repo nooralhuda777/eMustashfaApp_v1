@@ -15,9 +15,8 @@ const AuthenticationLayout = () => {
         headerTintColor: theme.title,
       }}
     >
-      <Stack.Screen name="(authentication)" options={{ headerShown: false }} />
-      <Stack.Screen name="/loginScreen" options={{ headerShown: false }} />
-      <Stack.Screen name="/signupScreen" options={{ headerShown: false }} />
+      <Stack.Screen name="loginScreen" options={{ headerShown: false }} />
+      <Stack.Screen name="signupScreen" options={{ headerShown: false }} />
     </Stack>
   );
 };

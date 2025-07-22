@@ -10,5 +10,5 @@ const ThemedLogo = (style, ...props) => {
 
 export default ThemedLogo;
 const styles = StyleSheet.create({
-  img: { width: 250, height: 250, marginVertical: 20 },
+  img: { width: 200, height: 200, marginVertical: 10 },
 });

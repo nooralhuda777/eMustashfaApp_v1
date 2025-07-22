@@ -1,11 +1,11 @@
 import React from "react";
 import { Colors } from "../constants/Color";
 import { StatusBar } from "expo-status-bar";
-import { Stack, Redirect } from "expo-router"; // Import Stack and Redirect
+import { Stack, Redirect } from "expo-router";
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { getAuth } from "firebase/auth";
-import { auth } from "../FirebaseConfig"; // <--- ADJUST PATH if firebaseConfig.js is elsewhere!
+import { auth } from "../FirebaseConfig";
 import {
   ActivityIndicator,
   View,
@@ -17,7 +17,7 @@ const _layout = () => {
   const colorScheme = useColorScheme();
   const theme = Colors[colorScheme] ?? Colors.light;
   const [user, setUser] = useState(null);
-  const [isAuthReady, setIsAuthReady] = useState(false); // To ensure we don't flash content
+  const [isAuthReady, setIsAuthReady] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
@@ -53,15 +53,12 @@ const _layout = () => {
 
       <Stack.Screen
         name="index"
-        options={{ title: "Home", headerShown: true }}
+        options={{ title: "Home", headerShown: false }}
       />
-
-      {/* <Stack.Screen
-        name="(auth)"
-        options={{ headerShown: true, headerTitle: "Authentication" }}
+      <Stack.Screen
+        name="about"
+        options={{ title: "About", headerShown: false }}
       />
-
-      <Stack.Screen name="(authentication)" options={{ headerShown: false }} /> */}
     </Stack>
   );
 };

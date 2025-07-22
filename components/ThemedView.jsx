@@ -2,6 +2,7 @@ import { SafeAreaView, View, useColorScheme } from "react-native";
 import { Colors } from "../constants/Color";
 import React from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { StatusBar } from "react-native";
 
 const ThemedView = ({ style, safe = false, ...props }) => {
   const colorScheme = useColorScheme();
@@ -13,17 +14,20 @@ const ThemedView = ({ style, safe = false, ...props }) => {
     );
   const insets = useSafeAreaInsets();
   return (
-    <View
-      style={[
-        {
-          backgroundColor: theme.background,
-          paddingTop: insets.top,
-          paddingBottom: insets.bottom,
-        },
-        style,
-      ]}
-      {...props}
-    />
+    <>
+      <StatusBar style="auto" />
+      <View
+        style={[
+          {
+            backgroundColor: theme.background,
+            paddingTop: insets.top,
+            paddingBottom: insets.bottom,
+          },
+          style,
+        ]}
+        {...props}
+      />
+    </>
   );
 };
 

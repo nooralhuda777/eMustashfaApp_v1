@@ -1,16 +1,21 @@
-// src/screens/LoginScreen.js (Example component)
-import React, { useState } from "react";
-import { TextInput, Button, StyleSheet, Alert } from "react-native";
+import { useState } from "react";
+import {
+  TextInput,
+  Button,
+  StyleSheet,
+  Alert,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from "react-native";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../FirebaseConfig"; // Import your initialized auth instance
-import ThemedButton from "../../components/ThemedButton";
+import { auth } from "../../FirebaseConfig";
 import ThemedView from "../../components/ThemedView";
 import { Link, router } from "expo-router";
 
 import ThemedLogo from "../../components/ThemedLogo";
 import ThemedText from "../../components/ThemedText";
 import Spacer from "../../components/Spacer";
-import { Colors } from "../../constants/Color"; // Assuming Colors is here
+import { Colors } from "../../constants/Color";
 import { useColorScheme } from "react-native";
 
 function SignUpScreen() {
@@ -31,7 +36,7 @@ function SignUpScreen() {
       await createUserWithEmailAndPassword(auth, email, password);
       console.log("Account created!");
       Alert.alert("Success", "Account created! Welcome!");
-      // Firebase auth listener in app/_layout.jsx will handle navigation to dashboard
+      router.replace("/(authentication)/loginScreen");
     } catch (error) {
       console.error("Sign-up error:", error.code, error.message);
       let errorMessage = "Failed to create account. Please try again.";
@@ -47,49 +52,63 @@ function SignUpScreen() {
   };
 
   return (
-    <ThemedView
-      style={[styles.container, { backgroundColor: theme.background }]}
-    >
-      <ThemedLogo />
-      <Spacer height={10} />
-      <ThemedText style={[styles.title, { color: theme.title }]}>
-        Create Account
-      </ThemedText>
-      <TextInput
-        style={[styles.input, { borderColor: theme.border, color: theme.text }]}
-        placeholder="Email"
-        placeholderTextColor={theme.placeholder}
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-        autoCapitalize="none"
-      />
-      <TextInput
-        style={[styles.input, { borderColor: theme.border, color: theme.text }]}
-        placeholder="Password"
-        placeholderTextColor={theme.placeholder}
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
-      <Button title="Sign Up" onPress={handleSignUp} />
-      <Spacer height={15} />
-      <Link href="/(authentication)/loginScreen">
-        <ThemedText
-          style={[styles.link, { color: theme.text }]}
-          children="Already have an account? Login"
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <ThemedView
+        style={[styles.container, { backgroundColor: theme.background }]}
+      >
+        <ThemedLogo />
+
+        <Spacer height={20} />
+
+        <ThemedText style={[styles.title, { color: theme.title }]}>
+          Create Account
+        </ThemedText>
+        <TextInput
+          style={[
+            styles.input,
+            { borderColor: theme.border, color: theme.text },
+          ]}
+          placeholder="Email"
+          placeholderTextColor={theme.placeholder}
+          value={email}
+          onChangeText={setEmail}
+          keyboardType="email-address"
+          autoCapitalize="none"
         />
-      </Link>
-    </ThemedView>
+        <TextInput
+          style={[
+            styles.input,
+            { borderColor: theme.border, color: theme.text },
+          ]}
+          placeholder="Password"
+          placeholderTextColor={theme.placeholder}
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+        />
+        <Button title="Sign Up" onPress={handleSignUp} />
+        <Spacer height={15} />
+        <Link href="/(authentication)/loginScreen">
+          <ThemedText
+            style={[styles.link, { color: theme.text }]}
+            children="Already have an account? Login"
+          />
+        </Link>
+        <Link href="../about" style={styles.AboutLink}>
+          <ThemedText>Learn more about eMustashfa?</ThemedText>
+        </Link>
+        <Spacer height={220} />
+      </ThemedView>
+    </TouchableWithoutFeedback>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
     flex: 1,
+    alignItems: "center",
     justifyContent: "center",
-    flexDirection: "column",
+    padding: 20,
   },
   title: {
     fontSize: 24,
@@ -97,12 +116,22 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderRadius: 5,
-    padding: 10,
-    marginBottom: 10,
+    borderRadius: 8,
+    padding: 12,
+    marginBottom: 15,
+    width: "80%",
+    fontSize: 16,
   },
   link: {
-    marginTop: 10,
+    fontWeight: "bold",
+    textDecorationLine: "underline",
+    fontSize: 15,
+  },
+  AboutLink: {
+    fontWeight: "bold",
+    textDecorationLine: "underline",
+    fontSize: 12,
+    marginTop: 25,
   },
 });
 export default SignUpScreen;

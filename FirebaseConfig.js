@@ -8,14 +8,13 @@ import { getDatabase } from "firebase/database";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBGT06MTLx_pUajalxRsD2Qqa9nT_L3j6A",
-  authDomain: "capstone-project-na-skillsu.firebaseapp.com",
-  projectId: "capstone-project-na-skillsu",
-  storageBucket: "capstone-project-na-skillsu.firebasestorage.app",
-  messagingSenderId: "414783407942",
-  appId: "1:414783407942:web:ba0e7de660d70e8c844747",
-  databaseURL:
-    "https://capstone-project-na-skillsu-default-rtdb.asia-southeast1.firebasedatabase.app",
+  apiKey: process.env.EXPO_PUBLIC_FB_API_KEY,
+  authDomain: process.env.EXPO_PUBLIC_AUTH_DOMAIN,
+  projectId: process.env.EXPO_PUBLIC_PROJECT_ID,
+  storageBucket: process.env.EXPO_PUBLIC_STORAGE_BUCKET,
+  messagingSenderId: process.env.EXPO_PUBLIC_MS_ID,
+  appId: process.env.EXPO_PUBLIC_APP_ID,
+  databaseURL: process.env.EXPO_PUBLIC_DB_URL,
 };
 
 // Initialize Firebase
